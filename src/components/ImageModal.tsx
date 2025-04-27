@@ -1,11 +1,20 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import * as React from "react";
 import Modal from "react-modal";
-
+import { PhotoType } from "../type";
 Modal.setAppElement("#root");
 
-export default function ImageModal({ isOpen, onClose, image }) {
+
+type ImageModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  image: PhotoType | null ;
+};
+
+
+export default function ImageModal({ isOpen, onClose, image }:ImageModalProps) {
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
         onClose();
       }
@@ -29,7 +38,7 @@ export default function ImageModal({ isOpen, onClose, image }) {
       overlayClassName="overlay"
     >
       <div className="modal-content">
-        <img src={image?.urls?.regular} alt={image?.alt_description} />
+         {image && <img src={image.urls.regular} alt={image.alt_description} />}
       </div>
     </Modal>
   );

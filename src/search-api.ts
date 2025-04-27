@@ -1,11 +1,11 @@
 import axios from "axios";
-
+import { PhotoType } from './type';
 axios.defaults.baseURL = "https://api.unsplash.com";
 const ACCESS_KEY = "kOGLsRrYB_xiUtd4ymh3pRN4KYURpWeLW4qQxGnBPA4"; 
 
-export const fetchPhotosWithTopic = async (topic, currentPage = 1) => {
+export const fetchPhotosWithTopic = async (topic, currentPage = 1): Promise<PhotoType[]> => {
     try {
-        const response = await axios.get(`/search/photos/`, {
+        const response = await axios.get<{ results: PhotoType[] }>(`/search/photos/`, {
             params: {
                  query: topic, 
                 client_id: ACCESS_KEY,
